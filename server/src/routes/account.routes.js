@@ -1,0 +1,1 @@
+const router=require('express').Router();const auth=require('../middleware/authenticate');const c=require('../controllers/account.controller');router.use(auth);router.patch('/password',c.changePassword);module.exports=router;

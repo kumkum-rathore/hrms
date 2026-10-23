@@ -1,0 +1,12 @@
+const router = require('express').Router();
+const controller = require('../controllers/employee.controller');
+const authenticate = require('../middleware/authenticate');
+const authorizeRoles = require('../middleware/authorizeRoles');
+router.use(authenticate);
+router.get('/', authorizeRoles('SUPER_ADMIN', 'BRANCH_ADMIN', 'HOD', 'TEAM_LEAD', 'EMPLOYEE'), controller.list);
+router.get('/code', authorizeRoles('BRANCH_ADMIN', 'HOD', 'TEAM_LEAD', 'EMPLOYEE'), controller.previewCode);
+router.post('/', controller.create);
+router.patch('/:id', controller.update);
+router.delete('/:id/archive', controller.archive);
+router.delete('/:id', controller.remove);
+module.exports = router;

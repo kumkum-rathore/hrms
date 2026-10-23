@@ -1,0 +1,1 @@
+const router=require('express').Router();const auth=require('../middleware/authenticate');const c=require('../controllers/salary.controller');router.use(auth);router.get('/',c.list);router.post('/',c.create);router.patch('/:id/status',c.updateStatus);router.patch('/:id/adjustment',c.adjust);module.exports=router;

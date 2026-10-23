@@ -1,0 +1,9 @@
+import React, { useEffect, useState } from 'react';
+import { Activity, ArrowDownRight, ArrowUpRight, Bell, Building2, CalendarDays, Check, ChevronDown, CircleHelp, Clock3, Command, Download, FileText, Fingerprint, LayoutDashboard, LogOut, Menu, Plus, Search, Settings2, ShieldCheck, Users, X, MapPin, LoaderCircle, BriefcaseBusiness, CheckCircle2, AlertCircle, Moon, MoreHorizontal, Sparkles, CalendarCheck, UserRoundCog, ArrowUpRight as ArrowUpRightIcon } from 'lucide-react';
+import { api, login, logout, restoreSession, getAccessToken, downloadFile } from '../lib/api';
+import { roleLabel, pageLabel, heading, subheading, canManage, titleCase, initials, niceDate } from '../utils/labels.js';
+import { PasswordField, Status, EmptyState, LoadingRows, ComingSoon } from '../components/common.jsx';
+
+function SettingsPage({ user, notify }) { const [currentPassword,setCurrent]=useState('');const [newPassword,setNew]=useState('');const [busy,setBusy]=useState(false);async function submit(e){e.preventDefault();setBusy(true);try{await api('/account/password',{method:'PATCH',body:JSON.stringify({currentPassword,newPassword})});notify('Password changed. Please sign in again.');}catch(err){notify(err.message,'error');}finally{setBusy(false);}}return <div className="panel data-panel"><div className="panel-heading"><div><h3>Account security</h3><p>Signed in as {user.email}</p></div></div><form className="inline-task-form" onSubmit={submit}><div className="form-grid"><PasswordField label="Current password" required value={currentPassword} onChange={e=>setCurrent(e.target.value)}/><PasswordField label="New password (12+ characters)" required minLength="12" value={newPassword} onChange={e=>setNew(e.target.value)}/></div><button className="button button-primary" disabled={busy}>{busy?'Updating…':'Change password'}</button></form></div>; }
+
+export default SettingsPage;

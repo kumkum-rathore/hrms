@@ -1,0 +1,1 @@
+API calls are centralized in `api.js`. Access tokens stay in module memory for the browser; refresh uses an HttpOnly cookie. For cross-origin production deployments, configure cookie SameSite/Secure attributes and CORS carefully.
